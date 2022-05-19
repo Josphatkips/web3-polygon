@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from "ethers";
-const provider = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.matic.today');
+const provider = new ethers.providers.JsonRpcProvider('https://speedy-nodes-nyc.moralis.io/5b4db9130fec05462817ab17/polygon/mumbai');
 
 
 
@@ -937,7 +937,7 @@ async function generateWallet(){
 // Start of token send
 
 let private_key = mykey
-let send_token_amount = "10"
+let send_token_amount = "0.05"
 let to_address = "0x755Fc6E00Bf9dFE4626B064d59EdCfa137E1E5C5"
 let send_address = "myaddress"
 let gas_limit = "0x100000"
@@ -947,22 +947,18 @@ let contract_address =tokenaddress
 // window.ethersProvider = new ethers.providers.InfuraProvider("ropsten")
 
 
-function send_token(
-    contract_address,
-    send_token_amount,
-    to_address,
-    send_account,
-    private_key
-  ) {
+function send_token() {
     let wallet = new ethers.Wallet(private_key)
     let walletSigner = wallet.connect(provider)
   
     walletSigner.getGasPrice().then((currentGasPrice) => {
+      // let gas_price = 8000000000
       let gas_price = ethers.utils.hexlify(parseInt(currentGasPrice))
       console.log(`gas_price: ${gas_price}`)
   
       if (contract_address) {
         // general token send
+        console.log('genrate send')
         let contract = new ethers.Contract(
           contract_address,
           send_abi,
@@ -975,17 +971,17 @@ function send_token(
   
         // Send tokens
         contract.transfer(to_address, numberOfTokens).then((transferResult) => {
-          console.dir(transferResult)
+          console.log(transferResult)
           alert("sent token")
         })
       } // ether send
       else {
         const tx = {
-          from: send_account,
+          from: send_address,
           to: to_address,
           value: ethers.utils.parseEther(send_token_amount),
           nonce: window.ethersProvider.getTransactionCount(
-            send_account,
+            send_address,
             "latest"
           ),
           gasLimit: ethers.utils.hexlify(gas_limit), // 100000
