@@ -2,6 +2,7 @@ import React from 'react';
 
 import Macbook from '../assets/macbook.svg'
 import Header from '../assets/header.png'
+import Stripe from './Stripe';
 // import Store from '../assets/appstore.svg'
 // import Macbook2 from '../assets/AppStore.svg'
 // import AppStore from '../assets/App Store.svg'
@@ -99,6 +100,8 @@ const CreateWallet = () => {
         </div>
       </div>
     </div>
+
+    <Stripe />
     
     </>  );
 }
