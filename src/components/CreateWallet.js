@@ -3,6 +3,7 @@ import React from 'react';
 import Macbook from '../assets/macbook.svg'
 import Header from '../assets/header.png'
 import Stripe from './Stripe';
+import Tabs from './Tabs';
 // import Store from '../assets/appstore.svg'
 // import Macbook2 from '../assets/AppStore.svg'
 // import AppStore from '../assets/App Store.svg'
@@ -49,7 +50,7 @@ const CreateWallet = () => {
             </span>
             to sell yourself!
           </h1>
-          <p class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
+          <p class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left text-indigo-400">
             Sub-hero message, not too long and not too short. Make it just right!
           </p>
 
@@ -79,7 +80,9 @@ const CreateWallet = () => {
 
         {/* <!--Right Col--> */}
         <div class="w-full xl:w-3/5 p-12 overflow-hidden">
-          <img class="mx-auto w-full md:w-4/5 transform -rotate-6 transition hover:scale-105 duration-700 ease-in-out hover:rotate-6" src={Macbook} />
+          {/* <img class="mx-auto w-full md:w-4/5 transform -rotate-6 transition hover:scale-105 duration-700 ease-in-out hover:rotate-6" src={Macbook} /> */}
+
+          <Tabs />
         </div>
 
         <div class="mx-auto md:pt-16">
