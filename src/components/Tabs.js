@@ -117,29 +117,35 @@ export default function Tabs() {
               )}
             >
                 {/* Send Crypto */}
+                
 
                 <div className='flex flex-col'>
-                    <div>
+                <div>
                         <span className='text-indigo-400 text-2xl font-black'>Send Asset</span>
                         <div class="flex items-center justify-between pt-4">
                         
                         </div>
                         
                     </div>
-                    <div>
-                    <div class="flex items-start justify-between pt-4  flex-col space-y-3">
-                        <div className='flex flex-col space-y-3'>
-                            <div className='w-1/4'>
-                            <input
-                                class="shadow appearance-none border rounded w-/4 p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                    <input
+                                class="shadow appearance-none border border-indigo-400 rounded p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                                 id="emailaddress"
                                 type="text"
                                 placeholder="Receipient Address"
                             />
-                            </div>
+                
+                    
+                    <div>
+                        
+                        
+                    <div class="flex items-start justify-between pt-4  flex-col space-y-3">
+                        
+                        
+                        <div className='flex flex-col space-y-3'>
+                            
                             <div>
                             <input
-                                class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                                class="shadow appearance-none border border-indigo-400 rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                                 id="emailaddress"
                                 type="text"
                                 placeholder="Amount to transfer"
