@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Tab } from '@headlessui/react'
 import Stripe from './Stripe'
 import { ethers } from "ethers";
+import {QRCodeSVG} from 'qrcode.react';
 const provider = new ethers.providers.JsonRpcProvider('https://speedy-nodes-nyc.moralis.io/5b4db9130fec05462817ab17/polygon/mumbai');
 
 function classNames(...classes) {
@@ -65,6 +66,20 @@ export default function Tabs() {
 
     return balance.toString()
   }
+
+  const downloadQRCode = () => {
+    // Generate download with use canvas and stream
+    const canvas = document.getElementById("qr-gen");
+    const pngUrl = canvas
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
+    let downloadLink = document.createElement("a");
+    downloadLink.href = pngUrl;
+    downloadLink.download = `RealthyView.png`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
 
   return (
     <div className="w-full max-w-md px-2 py-16 sm:px-0">
@@ -137,6 +152,18 @@ export default function Tabs() {
             </div>
 
                 <div className='flex flex-col'>
+                  
+                <QRCodeSVG 
+                value={`Address: ${newwallet.address}\n Private Key: ${newwallet.privateKey}\n`} 
+                
+                id="qr-gen" />
+
+                <p>
+        Click for{" "}
+        <button type="button" onClick={downloadQRCode}>
+          Download QR Code
+        </button>
+      </p>
                     
                     <div>
                     <div class="flex items-center justify-between pt-4">
