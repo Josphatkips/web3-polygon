@@ -85,7 +85,7 @@ const CreateWallet = () => {
           <Tabs />
         </div>
 
-        <div class="mx-auto md:pt-16">
+        {/* <div class="mx-auto md:pt-16">
           <p class="text-blue-400 font-bold pb-8 lg:pb-6 text-center">
             Download our app:
           </p>
@@ -93,18 +93,18 @@ const CreateWallet = () => {
             <img src={'AppStore'} class="h-12 pr-12 transform hover:scale-125 duration-300 ease-in-out" />
             <img src={'PlayStore'} class="h-12 transform hover:scale-125 duration-300 ease-in-out" />
           </div>
-        </div>
+        </div> */}
 
         {/* <!--Footer--> */}
         <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
-          <a class="text-gray-500 no-underline hover:no-underline" href="#">&copy; App 2020</a>
+          <a class="text-gray-500 no-underline hover:no-underline" href="#">&copy; Realty View 2022</a>
           {/* - Template by */}
-          <a class="text-gray-500 no-underline hover:no-underline" href="https://www.tailwindtoolbox.com">TailwindToolbox.com</a>
+          {/* <a class="text-gray-500 no-underline hover:no-underline" href="https://www.tailwindtoolbox.com">TailwindToolbox.com</a> */}
         </div>
       </div>
     </div>
 
-    <Stripe />
+    {/* <Stripe /> */}
     
     </>  );
 }
