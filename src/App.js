@@ -6,7 +6,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
 import Nav from './components/Nav';
-import { createContext, useReducer } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import Logout from './components/auth/Logout';
 
 export const AuthContext = createContext()
@@ -15,6 +15,7 @@ const initialauth = {
   logged_in: sessionStorage.getItem('logged_in',false),
 user: sessionStorage.getItem('user'),
 token: sessionStorage.getItem('token'),
+token: sessionStorage.getItem('mywallet'),
 }
 const authreducer = (state, action) => {
   switch (action.type) {
@@ -23,6 +24,8 @@ const authreducer = (state, action) => {
           return {...state,logged_in : action.value}
     case 'user':
       return {...state, user: action.value}
+    case 'mywallet':
+      return {...state, mywallet: action.value}
     case 'token':
       return {...state, token: action.value}
    
@@ -33,6 +36,10 @@ const authreducer = (state, action) => {
 
 function App() {
   const [auth, dispatchAuth] = useReducer(authreducer, initialauth)
+
+  // useEffect(()=>{
+
+  // },[])
   
   return (
     <AuthContext.Provider value={{ auth, dispatchAuth }}>

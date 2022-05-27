@@ -1,38 +1,135 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import Macbook from '../assets/macbook.svg'
 import Header from '../assets/header.png'
 import Stripe from './Stripe';
 import Tabs from './Tabs';
 import Nav from './Nav';
-import { Link } from 'react-router-dom';
+import { Link,Navigate } from 'react-router-dom';
 import axios from 'axios';
 import url from './url';
-// import Store from '../assets/appstore.svg'
-// import Macbook2 from '../assets/AppStore.svg'
-// import AppStore from '../assets/App Store.svg'
-// import PlayStore from '../assets/Play Store.svg'
+import { AuthContext } from '../App';
+import { ethers } from "ethers";
+// import {QRCodeSVG} from 'qrcode.react';
+const provider = new ethers.providers.JsonRpcProvider('https://speedy-nodes-nyc.moralis.io/5b4db9130fec05462817ab17/polygon/mumbai');
+
+var user={}
+
 
 const CreateWallet = () => {
+  const { auth, dispatchAuth }=useContext(AuthContext)
+//   const [, updateState] = React.useState();
+// const forceUpdate = React.useCallback(() => updateState({}), []);
+
+
+
+if(auth.logged_in){
+  user=JSON.parse( auth.user)
+
+}else{
+  user={}
+}
 
   useEffect(()=>{
-
     fetchWallet();
 
   },[])
+  async function generateWallet(){
+    const  wallet =  ethers.Wallet.createRandom()
 
-  const fetchWallet=()=>{
+    // console.log(wallet)
 
-    axios.get(url+'client')
+    // sessionStorage.setItem('mywallet', JSON.stringify(wallet));
+
+    // dispatchAuth({type:'mywallet',value:JSON.stringify(wallet)})
+
+    var token = sessionStorage.getItem('token', false)
+  
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+              
+            }
+        };
+
+        const parames={
+          address:wallet.address,
+          private_key:wallet.privateKey
+        }
+
+    axios.post(url+'client/wallet',parames,config)
+      .then(res=>{
+        console.log(res)
+
+      }).catch(e=>{
+        console.log(e)
+
+      }).then(res=>{
+
+        console.log('why silent')
+
+      })
+    
+    // const  wallet =  new ethers.Wallet( mykey,  provider  )
+    // setNewWallet(wallet)
+    // console.log(wallet.getBalance())
+
+    // // const bal = await wallet.getBalance();
+
+    // const balance = await provider.getBalance(wallet.address);
+    // console.log(balance.toString()); // 0
+    // setBlance(balance.toString())
+}
+const fetchWallet=()=>{
+  // alert('yes')
+ var token = sessionStorage.getItem('token', false)
+  
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+              
+            }
+        };
+
+    axios.get(url+'client/wallet',config)
     .then(res=>{
-      console.log(res)
+
+      // alert('yes')
+      // console.log(res)
+
+      if(!res.data.mywallet){
+        generateWallet()
+
+      }else{
+
+         sessionStorage.setItem('mywallet', JSON.stringify(res.data.mywallet));
+
+        dispatchAuth({type:'mywallet',value:JSON.stringify(res.data.mywallet)})
+        
+
+      }
 
     }).catch(e=>{
-      console.log(e)
+      if(e.response.status==401){
+        // Unauthenticated
+
+        dispatchAuth({type:'login_status',value:false})
+        dispatchAuth({type:'user',value:{}})
+        // forceUpdate()
+
+      }
 
     })
   }
     return (<>
+
+{!auth.logged_in?<>
+    <Navigate to="/logout" />
+
+    
+    
+    
+    </>:null}
 
     {/* <Nav /> */}
     <div class="h-full" style={{backgroundImage: `url(${Header})`}}>
@@ -68,6 +165,9 @@ const CreateWallet = () => {
           </div>
         </div>
       </div>
+
+      {user.name}
+      {user.email}
 
       {/* <!--Main--> */}
       <div class="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center">

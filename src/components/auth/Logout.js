@@ -4,6 +4,7 @@ import { AuthContext } from '../../App';
 
 const Logout = () => {
     const { auth, dispatchAuth } = useContext(AuthContext)
+    
 
     // useContext(AuthContext)
 

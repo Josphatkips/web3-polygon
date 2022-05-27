@@ -54,12 +54,12 @@ export default function SignUp() {
           // 1. Dispatch to context 
           var abc= res.data
           dispatchAuth({type:'login_status',value:true})
-          dispatchAuth({type:'user',value:JSON.stringify(abc)})
+          dispatchAuth({type:'user',value:JSON.stringify(abc.user)})
           // 2. write to session storage
 
           sessionStorage.setItem('logged_in', true);
-          sessionStorage.setItem('user', JSON.stringify(abc));
-          sessionStorage.setItem('token', res.data.result.accessToken);
+          sessionStorage.setItem('user', JSON.stringify(abc.user));
+          sessionStorage.setItem('token', res.data.token);
 
           setSucess(true)
         } else {
