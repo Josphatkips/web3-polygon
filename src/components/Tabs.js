@@ -94,9 +94,7 @@ export default function Tabs() {
   },[])
 
   const downloadQRCode = () => {
-    getMyBlance()
-
-    return
+    
     // Generate download with use canvas and stream
     const canvas = document.getElementById("qr-gen");
     const pngUrl = canvas
