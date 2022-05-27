@@ -16,12 +16,15 @@ const initialauth = {
 user: sessionStorage.getItem('user'),
 token: sessionStorage.getItem('token'),
 token: sessionStorage.getItem('mywallet'),
+token: sessionStorage.getItem('wallet_done'),
 }
 const authreducer = (state, action) => {
   switch (action.type) {
 
     case 'login_status':
           return {...state,logged_in : action.value}
+    case 'wallet_done':
+          return {...state,wallet_done : action.value}
     case 'user':
       return {...state, user: action.value}
     case 'mywallet':

@@ -1,29 +1,46 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Tab } from '@headlessui/react'
 import Stripe from './Stripe'
 import { ethers } from "ethers";
-import {QRCodeSVG} from 'qrcode.react';
+import {QRCodeCanvas} from 'qrcode.react';
+import { AuthContext } from '../App';
 const provider = new ethers.providers.JsonRpcProvider('https://speedy-nodes-nyc.moralis.io/5b4db9130fec05462817ab17/polygon/mumbai');
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+var wallet={}
+
 export default function Tabs() {
   const [newwallet, setNewWallet]=useState({})
   const [balance, setBlance]=useState('')
+  const { auth, dispatchAuth } =  useContext(AuthContext)
+
+  
+  
+  if(auth.wallet_done){
+    wallet=JSON.parse( auth.mywallet)
+
+
+  }else{
+    wallet={}
+
+  }
 
   async function generateWallet(){
-    const  wallet =  ethers.Wallet.createRandom()
-    // const  wallet =  new ethers.Wallet( mykey,  provider  )
-    setNewWallet(wallet)
-    console.log(wallet.getBalance())
 
-    // const bal = await wallet.getBalance();
+    console.log(auth)
+    // const  wallet =  ethers.Wallet.createRandom()
+    // // const  wallet =  new ethers.Wallet( mykey,  provider  )
+    // setNewWallet(wallet)
+    // console.log(wallet.getBalance())
 
-    const balance = await provider.getBalance(wallet.address);
-    console.log(balance.toString()); // 0
-    setBlance(balance.toString())
+    // // const bal = await wallet.getBalance();
+
+    // const balance = await provider.getBalance(wallet.address);
+    // console.log(balance.toString()); // 0
+    // setBlance(balance.toString())
 }
 
   let [categories] = useState({
@@ -67,6 +84,11 @@ export default function Tabs() {
     return balance.toString()
   }
 
+
+  useEffect(()=>{
+
+  },[])
+
   const downloadQRCode = () => {
     // Generate download with use canvas and stream
     const canvas = document.getElementById("qr-gen");
@@ -75,7 +97,7 @@ export default function Tabs() {
       .replace("image/png", "image/octet-stream");
     let downloadLink = document.createElement("a");
     downloadLink.href = pngUrl;
-    downloadLink.download = `RealthyView.png`;
+    downloadLink.download = 'RealthyView.png';
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
@@ -132,12 +154,12 @@ export default function Tabs() {
                 class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                 id="emailaddress"
                 type="text"
-                value={newwallet.address}
+                value={wallet.address}
                 readOnly
                 // placeholder="you@somewhere.com"
               />
             </div>
-                <div class="mb-4">
+                {/* <div class="mb-4">
               <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
                 Your Private Key
               </label>
@@ -147,25 +169,32 @@ export default function Tabs() {
                 type="text"
                 value={newwallet.privateKey}
                 readOnly
-                // placeholder="you@somewhere.com"
+                
               />
-            </div>
+            </div> */}
 
                 <div className='flex flex-col'>
-                  
-                <QRCodeSVG 
-                value={`Address: ${newwallet.address}\n Private Key: ${newwallet.privateKey}\n`} 
+
+                  {auth.wallet_done?<>
+                    <QRCodeCanvas 
+                // value={`Address: ${wallet.address} Private Key: ${wallet.private_key}`} 
+                value={`Address: ${wallet.address}`} 
+                // value={ wallet.address+wallet.private_key} 
                 
                 id="qr-gen" />
+
+                  </>:null}
+                  
+                
 
                 <p>
         Click for{" "}
         <button type="button" onClick={downloadQRCode}>
-          Download QR Code
+          Download Address QR Code
         </button>
       </p>
                     
-                    <div>
+                    {/* <div>
                     <div class="flex items-center justify-between pt-4">
                         <button
                             class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
@@ -176,7 +205,7 @@ export default function Tabs() {
                         </button>
                     </div>
 
-                    </div>
+                    </div> */}
 
                 </div>
               

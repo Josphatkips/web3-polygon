@@ -59,14 +59,18 @@ if(auth.logged_in){
 
     axios.post(url+'client/wallet',parames,config)
       .then(res=>{
-        console.log(res)
+        // console.log(res)
+        sessionStorage.setItem('mywallet', JSON.stringify(res.data.mywallet));
+
+        dispatchAuth({type:'mywallet',value:JSON.stringify(res.data.mywallet)})
+        dispatchAuth({type:'wallet_done',value:true})
 
       }).catch(e=>{
-        console.log(e)
+        // console.log(e)
 
       }).then(res=>{
 
-        console.log('why silent')
+        // console.log('why silent')
 
       })
     
@@ -105,6 +109,7 @@ const fetchWallet=()=>{
          sessionStorage.setItem('mywallet', JSON.stringify(res.data.mywallet));
 
         dispatchAuth({type:'mywallet',value:JSON.stringify(res.data.mywallet)})
+        dispatchAuth({type:'wallet_done',value:true})
         
 
       }
