@@ -15,6 +15,7 @@
   ```
 */
 import { LockClosedIcon } from '@heroicons/react/solid'
+import { Link } from 'react-router-dom'
 
 export default function SignIn() {
   return (
@@ -90,9 +91,9 @@ export default function SignIn() {
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                  Forgot your password?
-                </a>
+                <Link to="create-account" className="font-medium text-indigo-600 hover:text-indigo-500">
+                  Create Free Account
+                </Link>
               </div>
             </div>
 
