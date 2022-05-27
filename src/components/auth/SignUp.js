@@ -35,6 +35,9 @@ export default function SignUp() {
 
     const { auth, dispatchAuth } = useContext(AuthContext)
 
+    console.log(auth)
+    console.log('auth')
+
     const createAccount=()=>{
 
       setError('')

@@ -7,6 +7,7 @@ import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
 import Nav from './components/Nav';
 import { createContext, useReducer } from 'react';
+import Logout from './components/auth/Logout';
 
 export const AuthContext = createContext()
 
@@ -42,6 +43,7 @@ function App() {
       {/* <Nav /> */}
       <Routes>
         <Route path="/" exact element={<Login />} />
+        <Route path="/logout" exact element={<Logout />} />
         <Route path="/create-account" element={<SignUp />} />
         <Route path="/dashboard" element={<CreateWallet />} />
       </Routes>
