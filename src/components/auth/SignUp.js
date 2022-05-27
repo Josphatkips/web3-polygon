@@ -15,21 +15,82 @@
   ```
 */
 import { LockClosedIcon } from '@heroicons/react/solid'
+import axios from 'axios'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import url from '../url'
 
 export default function SignUp() {
 
     const [email, setEmail]= useState('')
     const [name, setName]= useState('')
     const [password, setPassword]= useState('')
-    const [confimrpassword, setConfirmPassword]= useState('')
+    const [confirm_password, setConfirmPassword]= useState('')
+    const [error, setError]=useState('')
+    const [errors, setErrors]=useState({})
+    const [showAlert, setShowAlert] = useState(true);
 
     const createAccount=()=>{
-    
-        console.log(email)
-        console.log('email')
+
+      setError('')
+      setErrors({})
+      setShowAlert(false)
+
+      axios.post(url+'auth/register',{
+        confirm_password, password,email,name
+
+      }).then(res=>{
+        console.log(res)
+
+      }).catch(e=>{
+        
+        if(e.response.status==422){
+          console.log(e.response.data)
+          setErrors(e.response.data)
+
+          // console.log(errors.email)
+
+        }else{
+          // console.log(e)
+          setError(e.message)
+          setShowAlert(true)
+        }
+      }).then(res=>{
+        
+
+      })
+
     }
+
+    // const rendererror= errors.map(error=>{
+    //   console.log('error')
+    //   console.log(error)
+
+    // }
+
+      
+
+    // )
+    const rendererror=()=>(
+      <div
+          className={
+            "text-white px-6 py-4 border-0 rounded relative mb-4 bg-red-500"
+          }
+        >
+          <span className="text-xl inline-block mr-5 align-middle">
+            <i className="fas fa-bell" />
+          </span>
+          <span className="inline-block align-middle mr-8">
+            <b className="capitalize">{error}!</b>  
+          </span>
+          <button
+            className="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
+            onClick={() => setShowAlert(false)}
+          >
+            <span>×</span>
+          </button>
+        </div>
+    )
   return (
     <>
       {/*
@@ -42,6 +103,8 @@ export default function SignUp() {
       */}
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
+          {/* {rendererror} */}
+          
           <div>
             <img
               className="mx-auto h-12 w-auto"
@@ -55,6 +118,13 @@ export default function SignUp() {
                 Welcome to Realty View
               </div>
             </p>
+          </div>
+          <div>
+          {showAlert ? (
+        <>
+        {rendererror()}
+        </>
+      ) : null}
           </div>
           <div className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />
@@ -74,6 +144,11 @@ export default function SignUp() {
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Your name"
                 />
+                {errors.name? <>
+                  <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                {errors.name}
+              </span>
+                </>:<></>}
               </div>
               <div>
                 <label htmlFor="email-address" className="sr-only">
@@ -90,11 +165,17 @@ export default function SignUp() {
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
                 />
+                {errors.email? <>
+                  <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                {errors.email}
+              </span>
+                </>:<></>}
               </div>
               <div>
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
+                
                 <input
                   id="password"
                   name="password"
@@ -106,6 +187,12 @@ export default function SignUp() {
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
                 />
+                {errors.password? <>
+                  <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                {errors.password}
+              </span>
+                </>:<></>}
+                
               </div>
               <div>
                 <label htmlFor="password" className="sr-only">
@@ -115,13 +202,18 @@ export default function SignUp() {
                   id="password"
                   name="password"
                   type="password"
-                  value={confimrpassword}
+                  value={confirm_password}
                     onChange={(e)=>setConfirmPassword(e.target.value)}
                   autoComplete="current-password"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Confirm Password"
                 />
+                {errors.confirm_password? <>
+                  <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                {errors.confirm_password}
+              </span>
+                </>:<></>}
               </div>
             </div>
 
