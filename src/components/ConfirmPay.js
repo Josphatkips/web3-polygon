@@ -19,15 +19,19 @@ const Confirm = () => {
     const [error, setError]=useState('')
 
     async function fetchBal(){
+
+        const conv= ethers.utils.formatEther(amount)
+
+        console.log(conv)
         // alert();
-       const contract= new ethers.Contract( tokenaddress , TOKENABI , provider )
+    //    const contract= new ethers.Contract( tokenaddress , TOKENABI , provider )
 
-    //    console.log(contract.balanceOf('0x82BBa17EBd3cC23D5Bf5aC8f11FCEEa5E7274417'))
+    // //    console.log(contract.balanceOf('0x82BBa17EBd3cC23D5Bf5aC8f11FCEEa5E7274417'))
 
-       const bal= await contract.balanceOf('0x82BBa17EBd3cC23D5Bf5aC8f11FCEEa5E7274417')
+    //    const bal= await contract.balanceOf('0x82BBa17EBd3cC23D5Bf5aC8f11FCEEa5E7274417')
 
-       console.log(bal)
-       console.log(ethers.utils.formatUnits(bal, 6))
+    //    console.log(bal)
+    //    console.log(ethers.utils.formatUnits(bal, 6))
     }
 
     // async function getactualBalance(){
@@ -64,8 +68,12 @@ const Confirm = () => {
 
     const sendCrypto=(ctl)=>{
 
+        // const conv= ethers.utils.formatEther(amount)
 
-        return
+        // console.log(conv)
+
+
+        // return
 
         let private_key = ctl.private_key
         let send_token_amount = amount
@@ -94,8 +102,11 @@ const Confirm = () => {
         )
   
         // How many tokens?
-        let numberOfTokens = ethers.utils.parseUnits(send_token_amount, 18)
-        console.log(`numberOfTokens: ${numberOfTokens}`)
+        let numberOfTokens = amount
+        // let numberOfTokens = ethers.utils.parseUnits(send_token_amount, 18)
+        console.log(`numberOfTokens: ${send_token_amount}`)
+
+        // return
   
         // Send tokens
         contract.transfer(to_address, numberOfTokens).then((transferResult) => {
@@ -145,7 +156,7 @@ const Confirm = () => {
             {/* <label for="remember" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label> */}
             </div>
             <button 
-            onClick={()=>fetchBal()}
+            onClick={()=>fetchCred()}
              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
     </div>
 

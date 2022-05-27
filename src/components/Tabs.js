@@ -75,8 +75,8 @@ export default function Tabs() {
    
       const bal= await contract.balanceOf(wallet.address)
    
-      // console.log(bal)
-      // console.log(ethers.utils.formatUnits(bal, 6))
+      console.log(bal)
+      console.log(ethers.utils.formatUnits(bal, 6))
       setBlance(ethers.utils.formatUnits(bal, 6))
 
 
