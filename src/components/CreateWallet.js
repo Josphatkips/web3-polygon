@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Macbook from '../assets/macbook.svg'
 import Header from '../assets/header.png'
@@ -6,12 +6,32 @@ import Stripe from './Stripe';
 import Tabs from './Tabs';
 import Nav from './Nav';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import url from './url';
 // import Store from '../assets/appstore.svg'
 // import Macbook2 from '../assets/AppStore.svg'
 // import AppStore from '../assets/App Store.svg'
 // import PlayStore from '../assets/Play Store.svg'
 
 const CreateWallet = () => {
+
+  useEffect(()=>{
+
+    fetchWallet();
+
+  },[])
+
+  const fetchWallet=()=>{
+
+    axios.get(url+'client')
+    .then(res=>{
+      console.log(res)
+
+    }).catch(e=>{
+      console.log(e)
+
+    })
+  }
     return (<>
 
     {/* <Nav /> */}

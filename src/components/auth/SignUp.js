@@ -35,8 +35,6 @@ export default function SignUp() {
 
     const { auth, dispatchAuth } = useContext(AuthContext)
 
-    console.log(auth)
-    console.log('auth')
 
     const createAccount=()=>{
 
@@ -49,12 +47,12 @@ export default function SignUp() {
         confirm_password, password,email,name
 
       }).then(res=>{
-        console.log(res)
+        // console.log(res)
 
         if (res.data.success) {
           // alert('success')
           // 1. Dispatch to context 
-          var abc= res.data.result
+          var abc= res.data
           dispatchAuth({type:'login_status',value:true})
           dispatchAuth({type:'user',value:JSON.stringify(abc)})
           // 2. write to session storage
