@@ -171,8 +171,6 @@ const fetchWallet=()=>{
         </div>
       </div>
 
-      {user.name}
-      {user.email}
 
       {/* <!--Main--> */}
       <div class="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center">

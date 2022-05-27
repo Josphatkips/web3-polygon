@@ -21,6 +21,7 @@ export default function Tabs() {
   
   if(auth.wallet_done){
     wallet=JSON.parse( auth.mywallet)
+    getMyBlance()
 
 
   }else{
@@ -78,10 +79,11 @@ export default function Tabs() {
   })
 
   async function getMyBlance(){
-    const balance = await provider.getBalance(newwallet.address);
-    console.log(balance.toString()); 
+    const balance = await provider.getBalance(wallet.address);
+    // console.log(balance.toString()); 
+    setBlance(balance.toString())
 
-    return balance.toString()
+    // return balance.toString()
   }
 
 
