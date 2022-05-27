@@ -4,6 +4,7 @@ import Stripe from './Stripe'
 import { ethers } from "ethers";
 import {QRCodeCanvas} from 'qrcode.react';
 import { AuthContext } from '../App';
+import { TOKENABI, TOKENADDRESS } from './config/config';
 const provider = new ethers.providers.JsonRpcProvider('https://speedy-nodes-nyc.moralis.io/5b4db9130fec05462817ab17/polygon/mumbai');
 
 function classNames(...classes) {
@@ -29,20 +30,7 @@ export default function Tabs() {
 
   }
 
-  async function generateWallet(){
 
-    console.log(auth)
-    // const  wallet =  ethers.Wallet.createRandom()
-    // // const  wallet =  new ethers.Wallet( mykey,  provider  )
-    // setNewWallet(wallet)
-    // console.log(wallet.getBalance())
-
-    // // const bal = await wallet.getBalance();
-
-    // const balance = await provider.getBalance(wallet.address);
-    // console.log(balance.toString()); // 0
-    // setBlance(balance.toString())
-}
 
   let [categories] = useState({
     "Buy Asset": [
@@ -79,11 +67,25 @@ export default function Tabs() {
   })
 
   async function getMyBlance(){
-    const balance = await provider.getBalance(wallet.address);
-    // console.log(balance.toString()); 
-    setBlance(balance.toString())
 
-    // return balance.toString()
+     // alert();
+   const contract= new ethers.Contract( TOKENADDRESS , TOKENABI , provider )
+
+   //    console.log(contract.balanceOf('0x82BBa17EBd3cC23D5Bf5aC8f11FCEEa5E7274417'))
+   
+      const bal= await contract.balanceOf(wallet.address)
+   
+      // console.log(bal)
+      // console.log(ethers.utils.formatUnits(bal, 6))
+      setBlance(ethers.utils.formatUnits(bal, 6))
+
+
+    
+    // const balance = await provider.getBalance(wallet.address);
+    // // console.log(balance.toString()); 
+    // setBlance(balance.toString())
+
+    // // return balance.toString()
   }
 
 
@@ -92,6 +94,9 @@ export default function Tabs() {
   },[])
 
   const downloadQRCode = () => {
+    getMyBlance()
+
+    return
     // Generate download with use canvas and stream
     const canvas = document.getElementById("qr-gen");
     const pngUrl = canvas
