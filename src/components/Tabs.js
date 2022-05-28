@@ -77,9 +77,9 @@ export default function Tabs() {
       const bal= await contract.balanceOf(wallet.address)
    
       // console.log(bal)
-      setBlanceStr(bal.toString())
+      // setBlanceStr(bal.format('ether'))
       // console.log(ethers.utils.formatUnits(bal, 6))
-      setBlance(ethers.utils.formatUnits(bal, 6))
+      setBlance(ethers.utils.formatUnits(bal, 18))
 
 
     
@@ -152,7 +152,7 @@ export default function Tabs() {
               )}
             >
                 {/* Wallet */}
-                Your Balance is: {balancestr} ({balance})
+                Your Balance is: {balance}
                 <div class="mb-4">
               <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
                 Address

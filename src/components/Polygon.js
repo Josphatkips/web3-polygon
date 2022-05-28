@@ -85,8 +85,11 @@ function send_token() {
         )
   
         // How many tokens?
-        let numberOfTokens = ethers.utils.parseUnits(send_token_amount, 18)
+        // let numberOfTokens = ethers.utils.parseUnits(send_token_amount, 6)
+        let numberOfTokens = send_token_amount
         console.log(`numberOfTokens: ${numberOfTokens}`)
+
+        // return
   
         // Send tokens
         contract.transfer(to_address, numberOfTokens).then((transferResult) => {

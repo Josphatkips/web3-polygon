@@ -111,8 +111,8 @@ const Confirm = () => {
         )
   
         // How many tokens?
-        let numberOfTokens = amount
-        // let numberOfTokens = ethers.utils.parseUnits(send_token_amount, 18)
+        // let numberOfTokens = amount
+        let numberOfTokens = ethers.utils.parseEther(send_token_amount)
         console.log(`numberOfTokens: ${send_token_amount}`)
 
         // return
@@ -140,7 +140,7 @@ const Confirm = () => {
         try {
           walletSigner.sendTransaction(tx).then((transaction) => {
             console.dir(transaction)
-            
+
             alert("Send finished!")
           })
         } catch (error) {
