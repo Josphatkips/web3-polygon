@@ -152,6 +152,13 @@ const fetchWallet=()=>{
                 >
               Logout
             </Link>
+            &nbsp;
+            &nbsp;
+            <Link to="/cfmpy" class="bg-gradient-to-r from-blue-800 to-purple-500 hover:from-maroon-500 hover:to-blue-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                // type="button"
+                >
+              Main account
+            </Link>
             <a class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out" href="#">
               <svg class="fill-current h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                 <path

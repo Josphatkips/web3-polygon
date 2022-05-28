@@ -16,6 +16,7 @@ var wallet={}
 export default function Tabs() {
   const [newwallet, setNewWallet]=useState({})
   const [balance, setBlance]=useState('')
+  const [balancestr, setBlanceStr]=useState('')
   const { auth, dispatchAuth } =  useContext(AuthContext)
 
   
@@ -75,8 +76,9 @@ export default function Tabs() {
    
       const bal= await contract.balanceOf(wallet.address)
    
-      console.log(bal)
-      console.log(ethers.utils.formatUnits(bal, 6))
+      // console.log(bal)
+      setBlanceStr(bal.toString())
+      // console.log(ethers.utils.formatUnits(bal, 6))
       setBlance(ethers.utils.formatUnits(bal, 6))
 
 
@@ -150,7 +152,7 @@ export default function Tabs() {
               )}
             >
                 {/* Wallet */}
-                Your Balance is: {balance}
+                Your Balance is: {balancestr} ({balance})
                 <div class="mb-4">
               <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
                 Address
