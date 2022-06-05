@@ -9,6 +9,7 @@ import Nav from './components/Nav';
 import { createContext, useEffect, useReducer } from 'react';
 import Logout from './components/auth/Logout';
 import Confirm from './components/ConfirmPay';
+import Analysis from './components/Analysis/Analysis';
 
 export const AuthContext = createContext()
 
@@ -56,6 +57,7 @@ function App() {
         <Route path="/" exact element={<Login />} />
         <Route path="/cfmpy" exact element={<Confirm />} />
         <Route path="/logout" exact element={<Logout />} />
+        <Route path="/analysis" exact element={<Analysis />} />
         <Route path="/create-account" element={<SignUp />} />
         <Route path="/dashboard" element={<CreateWallet />} />
       </Routes>
